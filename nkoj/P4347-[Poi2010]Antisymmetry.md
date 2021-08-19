@@ -18,8 +18,8 @@ int main() {
 	int R = -1, C = 0;
 	for (int i = 1; i <= len; i++) {
 		if (i > R) {
-			int j = i + 1;
-			while (j <= len && (i << 1) - j >= 1 && ((b[(i << 1) - j] == b[j] && b[j] == '#') || (b[(i << 1) - j] != b[j] && b[j] == '1' || b[j] == '0'))) j++;
+			int j = i;
+			while (j <= len && (i << 1) - j >= 1 && ((b[(i << 1) - j] == b[j] && b[j] == '#') || (b[(i << 1) - j] != b[j] && (b[j] == '1' || b[j] == '0')))) j++;
 			j--;
 			r[i] = j - i + 1;
 			R = j;
@@ -30,8 +30,8 @@ int main() {
 			if (pl > cl) r[i] = r[p2];
 			if (pl < cl) r[i] = R - i + 1;
 			if (pl == cl) {
-				int j = R + 1;
-				while (j <= len && (i << 1) - j >= 1 && ((b[(i << 1) - j] == b[j] && b[j] == '#') || (b[(i << 1) - j] != b[j] && b[j] == '1' || b[j] == '0'))) j++;
+				int j = R;
+				while (j <= len && (i << 1) - j >= 1 && ((b[(i << 1) - j] == b[j] && b[j] == '#') || (b[(i << 1) - j] != b[j] && (b[j] == '1' || b[j] == '0')))) j++;
 				j--;
 				r[i] = j - i + 1;
 				R = j;
@@ -41,13 +41,11 @@ int main() {
 	}
 	ll ans = 0;
 	for (int i = 1; i <= len; i++) {
-		ll t = 1ll * r[i] << 1 - 1 >> 1 >> 1;
-		ans += t * (t + 1) >> 1;
+		if (!r[i]) continue;
+		ll t = (1ll * r[i] << 1) - 1 >> 1 >> 1;
+		ans += t;
 	}
 	printf("%lld", ans);
-	puts("\n-----");
-	printf("%s\n", b + 1);
-	for (int i = 1; i <= len; i++) printf("%d", r[i]);
 	return 0;
 }
 ```
